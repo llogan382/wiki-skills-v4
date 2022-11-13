@@ -97,7 +97,7 @@ export default function Profile({
     <div className="min-h-screen pb-20">
       <div>
         <div
-          className={`h-48 w-full lg:h-64 
+          className={`h-48 w-full lg:h-64
           ${getGradient(user.username)}`}
         />
         <div
@@ -130,7 +130,7 @@ export default function Profile({
                 <CheckInCircleIcon className="w-6 h-6 text-[#0070F3]" />
               )}
             </div>
-            {user.verified ? (
+            {/* {user.verified ? (
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                 <a
                   href={`https://github.com/${user.username}`}
@@ -154,7 +154,7 @@ export default function Profile({
                   <span>Demo Account</span>
                 </a>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -167,7 +167,7 @@ export default function Profile({
               {tabs.map((tab) => (
                 <button
                   key={tab.name}
-                  disabled={tab.name !== 'Profile'}
+                  // disabled={tab.name !== 'Profile'}
                   className={`${
                     tab.name === 'Profile'
                       ? 'border-white text-white'
