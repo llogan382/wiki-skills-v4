@@ -1,46 +1,50 @@
-import { GetStaticProps } from 'next';
-import Profile from '@/components/profile';
-import {
-  getAllUsers,
-  UserProps,
-  getUserCount,
-  getFirstUser
-} from '@/lib/api/user';
-import { defaultMetaProps } from '@/components/layout/meta';
-import clientPromise from '@/lib/mongodb';
-
-export default function Home({ user }: { user: UserProps }) {
-  return <Profile user={user} settings={false} />;
-}
+import React from "react";
+import type { GetStaticProps } from "next";
+import Layout from "../components/Layout";
+import Post, { ProfileProps } from "../components/Post";
+import prisma from '../lib/prisma'
 
 export const getStaticProps: GetStaticProps = async () => {
-  // You should remove this try-catch block once your MongoDB Cluster is fully provisioned
-  try {
-    await clientPromise;
-  } catch (e: any) {
-    if (e.code === 'ENOTFOUND') {
-      // cluster is still provisioning
-      return {
-        props: {
-          clusterStillProvisioning: true
-        }
-      };
-    } else {
-      throw new Error(`Connection limit reached. Please try again later.`);
-    }
-  }
-
-  const results = await getAllUsers();
-  const totalUsers = await getUserCount();
-  const firstUser = await getFirstUser();
-
+  const feed = await prisma.user.findMany();
   return {
-    props: {
-      meta: defaultMetaProps,
-      results,
-      totalUsers,
-      user: firstUser
-    },
-    revalidate: 10
+    props: { feed },
+    revalidate: 10,
   };
 };
+
+type Props = {
+  feed: ProfileProps[];
+};
+
+const Blog: React.FC<Props> = (props) => {
+  return (
+    <Layout>
+      <div className="page">
+        <h1>Public Feed</h1>
+        <main>
+          {props.feed.map((post) => (
+            <div key={post.id} className="post">
+              <Post post={post} />
+            </div>
+          ))}
+        </main>
+      </div>
+      <style jsx>{`
+        .post {
+          background: white;
+          transition: box-shadow 0.1s ease-in;
+        }
+
+        .post:hover {
+          box-shadow: 1px 1px 3px #aaa;
+        }
+
+        .post + .post {
+          margin-top: 2rem;
+        }
+      `}</style>
+    </Layout>
+  );
+};
+
+export default Blog;

@@ -1,32 +1,20 @@
-import NextAuth from 'next-auth';
-import GitHubProvider from 'next-auth/providers/github';
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import clientPromise from 'lib/mongodb';
+import { NextApiHandler } from "next";
+import NextAuth from "next-auth";
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import GitHubProvider from 'next-auth/providers/github'
+import prisma from '../../../lib/prisma'
 
-export default NextAuth({
-  adapter: MongoDBAdapter(clientPromise),
+
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
+export default authHandler;
+
+const options = {
   providers: [
     GitHubProvider({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      profile(profile) {
-        return {
-          id: profile.id.toString(),
-          name: profile.name || profile.login,
-          username: profile.login,
-          email: profile.email,
-          image: profile.avatar_url,
-          followers: profile.followers,
-          verified: true
-        };
-      }
-    })
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
   ],
-  callbacks: {
-    async session({ session, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.username = user.username;
-      return session;
-    }
-  }
-});
+  adapter: PrismaAdapter(prisma),
+  secret: process.env.SECRET,
+};
