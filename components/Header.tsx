@@ -114,12 +114,12 @@ Log in
     left = (
       <div className="left">
         <Link href="/">
-          <a className="bold" data-active={isActive("/")}>
+
             Feed
-          </a>
+
         </Link>
         <Link href="/drafts">
-          <a data-active={isActive("/drafts")}>My drafts</a>
+my drafts
         </Link>
         <style jsx>{`
           .bold {

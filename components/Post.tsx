@@ -23,7 +23,7 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
       </div>
       <ul>
     {post.payments.map(item =>
-      (<li>
+      (<li key={item}>
       {item}
       </li>)
       )
