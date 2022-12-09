@@ -6,13 +6,9 @@ export type ProfileProps = {
   id: number;
   name: string;
   email: string;
-  payments: string[];
 };
 
 const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
-
-
-
   return (
     <section>
       <div>
@@ -21,14 +17,14 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
       <div>
         {post.email}
       </div>
-      <ul>
+      {/* <ul>
     {post.payments.map(item =>
       (<li key={item}>
       {item}
       </li>)
       )
     }
-      </ul>
+      </ul> */}
 
       <style jsx>{`
         section {

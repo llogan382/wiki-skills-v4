@@ -1,41 +1,21 @@
 import React from "react";
 import type { GetStaticProps } from "next";
 import Layout from "../components/Layout";
-import Post, { PostProps } from "../components/Post";
+import Post from "../components/Post";
 import { useSession, getSession } from "next-auth/react";
 import prisma from '../lib/prisma'
 
 
-export const getStaticProps: GetStaticProps = async ({ req, res }) => {
-  const session = await getSession({ req });
-  if (!session) {
-    res.statusCode = 403;
-    return { props: { drafts: [] } };
-  }
-
-  const drafts = await prisma.post.findMany({
-    where: {
-      author: { email: session.user.email },
-      published: false,
-    },
-    include: {
-      author: {
-        select: { name: true },
-      },
-    },
-  });
-  return {
-    props: { drafts },
-    revalidate: 10
-  };
-};
-
 type Props = {
-  drafts: PostProps[];
+  props: any;
 };
 
 const Drafts: React.FC<Props> = (props) => {
-  const {data: session}= useSession();
+  const {data: session}= useSession()
+  // const drafts = props.data;
+  // console.log(props.data)
+  // const drafts = [...props.data];
+  console.log(props)
 
   if (!session) {
     return (
@@ -51,11 +31,12 @@ const Drafts: React.FC<Props> = (props) => {
       <div className="page">
         <h1>My Drafts</h1>
         <main>
-          {props.drafts.map((post) => (
+          hello
+          {/* {drafts.map((post) => (
             <div key={post.id} className="post">
               <Post post={post} />
             </div>
-          ))}
+          ))} */}
         </main>
       </div>
       <style jsx>{`
@@ -75,5 +56,40 @@ const Drafts: React.FC<Props> = (props) => {
     </Layout>
   );
 };
+
+
+export async function getServerSideProps(context) {
+
+  // const { data: session, status } = getSession()
+  // if (!session) {
+
+  //   // res.statusCode = 403;
+  //   return { props: { drafts: [] } };
+  // }
+
+
+  const drafts = await prisma.post.findMany({
+    // where: {
+    //   author: {
+    //     email: session.user.email
+    //   },
+    //   published: false,
+    // },
+    include: {
+      author: {
+        select: { name: true },
+      },
+    },
+  });
+
+  const data = await JSON.parse(JSON.stringify(drafts))
+  console.log(data)
+  return {
+    props: {
+      data: data
+    }
+  }
+
+}
 
 export default Drafts;

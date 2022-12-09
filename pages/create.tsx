@@ -12,7 +12,9 @@ const Draft: React.FC = () => {
       const body = { title, content };
       await fetch(`/api/post`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+        "Cross-Origin-Resource-Policy": "cross-origin"
+      },
         body: JSON.stringify(body),
       });
       await Router.push("/drafts");
