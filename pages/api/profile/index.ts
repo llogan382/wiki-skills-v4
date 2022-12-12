@@ -4,31 +4,20 @@ import { getSession } from 'next-auth/react'
 
 // POST /api/post
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const { interests, payments } = req.body
-  try {
-    const result = await prisma.user.update({
-      where: {
-        email: 'llogan382@gmail.com'
-      },
+
+  const session = await getSession({ req });
+
+    const result = await prisma.profile.create({
       data: {
-        payments: payments,
-        interests: {
-          connectOrCreate: [
-          {
-            where: {
-              title: interests
-            },
-            create: {
-              title: interests
-            }
+        bio: 'this is Luke',
+        experience: '5 years',
+        profileId: {
+          connect: {
+            id: 'clbdv60120000pbcygnxbo4zw'
           }
-        ]}
-      }
-    })
-    res.status(200).send(result )
-  } catch (err) {
-    res.status(500).json({ error: 'failed to load data' })
-  }
-
-
+        }
+      },
+    });
+    console.log(result);
+    // res.json(result);
 }

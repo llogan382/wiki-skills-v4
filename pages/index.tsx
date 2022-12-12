@@ -5,8 +5,21 @@ import Post, { ProfileProps } from "../components/Post";
 import prisma from '../lib/prisma'
 import Router from "next/router";
 
+// TODO: Add Signup
+// TODO: Edit user interests
+// TODO: Add Location
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.user.findMany();
+  const feed = await prisma.interests.findMany({
+    include: {
+      User: {
+        select: {
+          email: true,
+          name: true,
+          payments: true
+        }
+      }
+    }
+  })
   return {
     props: { feed },
     revalidate: 10,
@@ -14,9 +27,10 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 type Props = {
-  feed: ProfileProps[];
+  feed: any[];
 };
 
+// TODO: Get all interests by user for feed
 const Blog: React.FC<Props> = (props) => {
 
   const sendInterests = async (e: React.SyntheticEvent) => {
@@ -38,6 +52,17 @@ const Blog: React.FC<Props> = (props) => {
       console.log(result)
   };
 
+  const showFeed = props.feed.map(item => {
+    const showResults = { showInterest: item.title,
+    showUser: item.User[0].name,
+    showPayments: item.User[0].payments
+
+    }
+    return(
+      showResults
+    )
+  });
+  // Array of Interests is passed in. Each interests has array of users.
 
   return (
     <Layout>
@@ -46,9 +71,14 @@ const Blog: React.FC<Props> = (props) => {
         <button onClick={sendInterests}>
     Send Interests
         </button>
+        <div>
+    {
+      console.log(showFeed)
+    }
+        </div>
         <main>
-          {props.feed.map((post) => (
-            <div key={post.id} className="post">
+          {showFeed.map((post) => (
+            <div key={post.showInterest} className="post">
               <Post post={post} />
             </div>
           ))}

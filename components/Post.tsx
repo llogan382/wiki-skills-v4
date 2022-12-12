@@ -3,28 +3,28 @@ import Router from "next/router";
 import ReactMarkdown from "react-markdown";
 
 export type ProfileProps = {
-  id: number;
-  name: string;
-  email: string;
+  showInterest: string;
+  showUser: string;
+  showPayments: string[];
 };
 
 const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
   return (
     <section>
       <div>
-        {post.name}
+        {post.showInterest}
       </div>
       <div>
-        {post.email}
+        {post.showUser}
       </div>
-      {/* <ul>
-    {post.payments.map(item =>
+      <ul>
+    {post.showPayments.map(item =>
       (<li key={item}>
       {item}
       </li>)
       )
     }
-      </ul> */}
+      </ul>
 
       <style jsx>{`
         section {

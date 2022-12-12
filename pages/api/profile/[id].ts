@@ -4,30 +4,28 @@ import prisma from '../../../lib/prisma'
 import { getSession } from 'next-auth/react';
 
 
+// TODO: Add Image
+// TODO: Add Location
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const {  payments, userEmail, interests } = req.body
-  console.log(interests)
+
+  const profileId = req.query.id.toString();
+
   const session = await getSession({ req })
 
-    const result = await prisma.user.update({
-      where: { email: String(session.user.email)},
-      data: {
-        email: userEmail,
-        payments: payments,
-        interests: {
-          connectOrCreate: [
-            {
-              where: {
-                title: interests
-              },
-              create: {
-                title: interests
-              }
-            }
-          ]
-        }
-      }
-    })
-    res.json(result);
-
+  const result = await prisma.profile.upsert({
+    where: {
+      userId: profileId,
+    },
+    update: {
+      experience: '3 years',
+      bio: 'from upsert'
+    },
+    create: {
+      experience: '3 years',
+      bio: 'from upsert',
+      userId: profileId
+    }
+  });
+  console.log(result);
+  // res.json(result);
 }
