@@ -9,6 +9,7 @@ import { getSession } from 'next-auth/react';
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 
   const profileId = req.query.id.toString();
+  const { bio, experience } = req.body;
 
   const session = await getSession({ req })
 
@@ -17,15 +18,15 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       userId: profileId,
     },
     update: {
-      experience: '3 years',
-      bio: 'from upsert'
+      experience: experience,
+      bio: bio
     },
     create: {
-      experience: '3 years',
-      bio: 'from upsert',
+      experience: experience,
+      bio: bio,
       userId: profileId
     }
   });
   console.log(result);
-  // res.json(result);
+  res.json(result);
 }

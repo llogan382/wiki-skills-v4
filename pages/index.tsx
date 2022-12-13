@@ -5,9 +5,11 @@ import Post, { ProfileProps } from "../components/Post";
 import prisma from '../lib/prisma'
 import Router from "next/router";
 
-// TODO: Add Signup
+// TODO: Add Signup page, fields
 // TODO: Edit user interests
 // TODO: Add Location
+
+// TODO: Make sure feed is great
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.interests.findMany({
     include: {

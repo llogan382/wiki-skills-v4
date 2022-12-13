@@ -2,6 +2,9 @@ import React, {useEffect, useState} from "react";
 import Router from "next/router";
 import ReactMarkdown from "react-markdown";
 
+// TODO: Update to show profile info, location
+
+// TODO: Update to show contact only if user is signed in.
 export type ProfileProps = {
   showInterest: string;
   showUser: string;
