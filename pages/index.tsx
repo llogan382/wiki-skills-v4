@@ -4,27 +4,25 @@ import Layout from "../components/Layout";
 import Post, { ProfileProps } from "../components/Post";
 import prisma from '../lib/prisma'
 import Router from "next/router";
+import Link from "next/link";
+import ProfileCard from "../components/ProfileCard";
 
-// TODO: Add Signup page, fields
-// TODO: Edit user interests
 // TODO: Add Location
-
-// TODO: Make sure feed is great
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = await prisma.interests.findMany({
+  const feed = await prisma.usersOnInterests.findMany({
+    orderBy: {
+      experience: 'asc'
+    },
     include: {
-      User: {
-        select: {
-          email: true,
-          name: true,
-          payments: true
-        }
-      }
+      user: true,
+      interest: true
     }
-  })
+
+  });
+
+  const updateReturn = await JSON.parse(JSON.stringify(feed));
   return {
-    props: { feed },
-    revalidate: 10,
+    props: { updateReturn }
   };
 };
 
@@ -32,59 +30,28 @@ type Props = {
   feed: any[];
 };
 
-// TODO: Get all interests by user for feed
 const Blog: React.FC<Props> = (props) => {
-
-  const sendInterests = async (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    const data = {
-      payments: "cash",
-      interests: "scuba",
-    }
-    const JSONdata = JSON.stringify(data)
-
-      const sendData = await fetch(`/api/profile`, {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSONdata,
-      });
-      const result = await sendData.json()
-      console.log(result)
-  };
-
-  const showFeed = props.feed.map(item => {
-    const showResults = { showInterest: item.title,
-    showUser: item.User[0].name,
-    showPayments: item.User[0].payments
-
-    }
-    return(
-      showResults
-    )
-  });
-  // Array of Interests is passed in. Each interests has array of users.
-
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
-        <button onClick={sendInterests}>
-    Send Interests
-        </button>
-        <div>
-    {
-      console.log(showFeed)
-    }
-        </div>
         <main>
-          {showFeed.map((post) => (
-            <div key={post.showInterest} className="post">
+        <h1>Public Feed</h1>
+
+{/* TODO: Fix hydration error */}
+           {props.updateReturn.map((post) => (
+            <div key={post.userId} className="post">
+              <Link href={`/interests/${post.userId}`}>
+
               <Post post={post} />
+              </Link>
             </div>
           ))}
         </main>
+        <div className="profileCard">
+          {/* TODO: Show the first profile by default */}
+            <ProfileCard userProp={props.updateReturn[0]}/>
+        </div>
+
       </div>
       <style jsx>{`
         .post {

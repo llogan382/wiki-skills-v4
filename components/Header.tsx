@@ -118,6 +118,7 @@ Log in
             Feed
 
         </Link>
+
         <Link href="/drafts">
 my drafts
         </Link>
@@ -147,6 +148,16 @@ my drafts
         <p>
           {session.user.name} ({session.user.email})
         </p>
+        <Link href="/profile">
+          <button>
+            <a>Profile</a>
+          </button>
+        </Link>
+        <Link href="/interests">
+          <button>
+            <a>interests</a>
+          </button>
+        </Link>
         <Link href="/create">
           <button>
             <a>New post</a>

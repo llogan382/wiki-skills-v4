@@ -1,33 +1,42 @@
 import React, {useEffect, useState} from "react";
 import Router from "next/router";
 import ReactMarkdown from "react-markdown";
-
+import { Interests, User } from "@prisma/client";
+import Link from "next/link";
 // TODO: Update to show profile info, location
 
-// TODO: Update to show contact only if user is signed in.
 export type ProfileProps = {
-  showInterest: string;
-  showUser: string;
-  showPayments: string[];
+  interest: Interests;
+  user: User;
+  experience: Date;
 };
 
 const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
+
+
+  const showDate = new Date(post.experience).toUTCString();
+
+
   return (
     <section>
+      <Link
+          as={`/interests/${post.user.id}`}
+          href="/interests/[post.user.id]"
+          >
+        {post.user.name}
+
+          </Link>
       <div>
-        {post.showInterest}
+        {post.user.name}
       </div>
       <div>
-        {post.showUser}
+        {post.interest.title}
       </div>
-      <ul>
-    {post.showPayments.map(item =>
-      (<li key={item}>
-      {item}
-      </li>)
-      )
-    }
-      </ul>
+      <div>
+        Experience since: {showDate}
+      </div>
+
+
 
       <style jsx>{`
         section {

@@ -8,8 +8,8 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
-  userId            String
+  id                Int     @id @default(autoincrement())
+  userId            Int
   type              String
   provider          String
   providerAccountId String
@@ -26,54 +26,66 @@ model Account {
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  id           Int      @id @default(autoincrement())
   sessionToken String   @unique
-  userId       String
+  userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Interests {
-  id    Int    @id @default(autoincrement())
-  title String @unique @db.VarChar(255)
-  User  User[] @relation("InterestsToUser")
+  id      Int                @id @default(autoincrement())
+  title   String             @unique @db.VarChar(255)
+  users   UsersOnInterests[]
+  created DateTime?          @default(now())
 }
 
-model Profile {
-  id         Int       @id @default(autoincrement())
-  bio        String?
-  avatar     String?
-  experience DateTime?
-  profileId  User      @relation(fields: [userId], references: [id])
-  userId     String    @unique
-  location   Location?
+model UsersOnInterests {
+  interest          Interests @relation(fields: [interestId], references: [id])
+  interestId        Int
+  user              User      @relation(fields: [userId], references: [id])
+  userId            Int
+  experience        DateTime
+  experienceDetails String?
+
+  @@id([interestId, userId])
 }
 
 model User {
-  id            String      @id @default(cuid())
-  email         String?     @unique
-  name          String?
-  payments      String[]
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  Post          Post[]
-  profileId     Int?
-  profile       Profile?
-  sessions      Session[]
-  interests     Interests[] @relation("InterestsToUser")
+  id                          Int                @id @default(autoincrement())
+  email                       String?            @unique
+  name                        String?
+  bio                         String?
+  payments                    String[]
+  street1                     String?
+  street2                     String?
+  city                        String?
+  State                       String?
+  zipcode                     Int?
+  emailVerified               DateTime?
+  image                       String?
+  accounts                    Account[]
+  Post                        Post[]
+  profileId                   Int?               @default(autoincrement())
+  sessions                    Session[]
+  interests                   UsersOnInterests[]
+  contact                     UserContact?       @relation(fields: [userContactUserIdForContact], references: [userIdForContact])
+  userContactUserIdForContact Int?
 }
 
-model Location {
-  id        Int     @id @default(autoincrement())
-  street1   String
-  street2   String?
-  city      String
-  State     String
-  zipcode   Int
-  current   Boolean
-  profile   Profile @relation(fields: [profileId], references: [id])
-  profileId Int     @unique
+model UserContact {
+  userIdForContact Int     @id
+  phone            String?
+  faceTime         String?
+  email            String?
+  textMessage             String?
+  linkedIn         String?
+  facebook         String?
+  twitter          String?
+  instagram        String?
+  tikTok           String?
+  youtube          String?
+  User             User[]
 }
 
 model VerificationToken {
@@ -91,6 +103,6 @@ model Post {
   title     String   @db.VarChar(255)
   content   String?
   published Boolean  @default(false)
-  authorId  String
+  authorId  Int
   author    User     @relation(fields: [authorId], references: [id])
 }

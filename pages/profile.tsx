@@ -7,11 +7,28 @@ import prisma from "../lib/prisma";
 import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 
-
+// TODO: Add location
 interface IFormInput {
   userId: String;
-  bio: String;
-  experience: String;
+  bio?: String;
+  payments?: String;
+  experience?: String;
+  street1?: String;
+  street2?: String;
+  city?: String;
+  state?: String;
+  zipcode?: Number;
+  interests?: String;
+  phone?: String;
+  faceTime?: String;
+  email?: String;
+  text?: String;
+  linkedIn?: String;
+  facebook?: String;
+  twitter?: String;
+  instagram?: String;
+  tikTok?: String;
+  youtube?: String;
 }
 
 type Props = {
@@ -25,13 +42,13 @@ const Profile: React.FC<Props> = (props) => {
   const { data: session } = useSession();
 
   const userId = session?.id;
-  // const onSubmit = data => console.log(data);
 
-
+// TODO: Load user data in form on page load.
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     console.log(data)
     try {
+
       await fetch(`/api/profile/${userId}`, {
         method: "POST",
         headers: {
@@ -62,14 +79,50 @@ const Profile: React.FC<Props> = (props) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <label>Bio</label>
             <input  {...register("bio")} />
-            <label>When did you start?</label>
-            <input type="date"
-                {...register("experience", {
-                  valueAsDate: true,
-                })}
-              />
+            <label>Payments</label>
+
+
+            <select {...register("payments")}>
+        <option value="Venmo">Venmo</option>
+        <option value="Paypal">Paypal</option>
+        <option value="ApplePay">ApplePay</option>
+        <option value="Check">Check</option>
+      </select>
+            <label>Street</label>
+            <input  {...register("street1")} />
+            <label>Street 2</label>
+            <input  {...register("street2")} />
+            <label>City</label>
+            <input  {...register("city")} />
+            <label>State</label>
+            <input  {...register("state")} />
+            <label>Zipcode</label>
+            <input  {...register("zipcode")} />
+
+<label> phone</label>
+<input {...register("phone")} />
+<label> faceTime</label>
+<input {...register("faceTime")} />
+<label> email</label>
+<input {...register("email")} />
+<label> text</label>
+<input {...register("text")} />
+<label> linkedIn</label>
+<input {...register("linkedIn")} />
+<label> facebook</label>
+<input {...register("facebook")} />
+<label> twitter</label>
+<input {...register("twitter")} />
+<label> instagram</label>
+<input {...register("instagram")} />
+<label> tikTok</label>
+<input {...register("tikTok")} />
+<label> youtube</label>
+<input {...register("youtube")} />
+
             <input type="submit" />
           </form>
+
         </main>
 
       </div>

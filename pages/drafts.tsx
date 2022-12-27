@@ -15,7 +15,6 @@ const Drafts: React.FC<Props> = (props) => {
   // const drafts = props.data;
   // console.log(props.data)
   // const drafts = [...props.data];
-  console.log(props)
 
   if (!session) {
     return (
