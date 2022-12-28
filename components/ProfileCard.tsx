@@ -16,8 +16,8 @@ const ProfileCard: React.FC<{ userProp: ProfileProps }> = ({ userProp }) => {
 
 
 
+
   // const showDate = new Date(post.experience).toUTCString();
-  console.log(userProp)
 
   const placeHolder = "Gingerbread oat cake wafer biscuit bear claw bonbon. Jelly muffin marshmallow marshmallow sesame snaps tiramisu bonbon. Cake fruitcake tootsie roll brownie icing dragée candy tootsie roll pastry. Wafer cotton candy brownie caramels candy canes caramels jelly beans carrot cake icing. Soufflé chocolate bar topping sweet tart tiramisu chocolate bar. Jelly beans sweet pudding chocolate bar soufflé powder pie dragée apple pie. Ice cream gummies marshmallow gummies gummi bears. Oat cake chocolate bar jelly-o sesame snaps tiramisu carrot cake. Tart apple pie jelly powder cheesecake cake gingerbread danish. Marshmallow sugar plum carrot cake gummi bears jelly beans danish jelly jelly beans carrot cake. Marshmallow shortbread cookie bear claw bonbon cake topping chocolate bar jujubes. Caramels apple pie cookie tart cheesecake.";
   const [userContent, setUserContent] = useState(placeHolder);

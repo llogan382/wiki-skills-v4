@@ -40,17 +40,12 @@ const Blog: React.FC<Props> = (props) => {
 {/* TODO: Fix hydration error */}
            {props.updateReturn.map((post) => (
             <div key={post.userId} className="post">
-              <Link href={`/interests/${post.userId}`}>
 
               <Post post={post} />
-              </Link>
+
             </div>
           ))}
         </main>
-        <div className="profileCard">
-          {/* TODO: Show the first profile by default */}
-            <ProfileCard userProp={props.updateReturn[0]}/>
-        </div>
 
       </div>
       <style jsx>{`

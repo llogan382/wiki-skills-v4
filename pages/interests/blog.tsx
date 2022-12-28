@@ -3,3 +3,4 @@ function About() {
 }
 
 export default About
+// Generates `/posts/1` and `/posts/2`
