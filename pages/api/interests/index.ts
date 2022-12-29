@@ -18,7 +18,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     experienceDetails,
     interests} = req.body;
 
-    const session = await unstable_getServerSession(req, res, authOptions)
+
 
     console.log(session)
   // The user exists. Connect or create
@@ -51,4 +51,11 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     res.status(401).send({ message: 'Unauthorized' })
   }
 
+}
+export async function getServerSideProps({ req, res }) {
+  return {
+    props: {
+      session: await unstable_getServerSession(req, res, authOptions)
+    }
+  }
 }

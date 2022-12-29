@@ -36,10 +36,6 @@ const Interest: React.FC<Props> = (props) => {
     try {
       await fetch(`/api/interests/${userId}`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Cross-Origin-Resource-Policy": "cross-origin",
-        },
         body: JSON.stringify(data),
       });
     } catch (error) {
