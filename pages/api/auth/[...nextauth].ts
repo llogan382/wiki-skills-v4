@@ -11,7 +11,6 @@ id: string
 }
 
 export const authOptions = {
-  adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -26,6 +25,7 @@ export const authOptions = {
       },
     }),
   ],
+  adapter: PrismaAdapter(prisma),
   debug: true,
   useSecureCookies: false,
   callbacks: {
