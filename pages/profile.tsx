@@ -40,7 +40,7 @@ type Props = {
 // TODO: Create image
 const Profile: React.FC<Props> = (props) => {
   const { data: session } = useSession();
-
+// @ts-ignore
   const userId = session?.id;
 
 // TODO: Load user data in form on page load.

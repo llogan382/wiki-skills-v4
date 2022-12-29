@@ -28,9 +28,6 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
         {post.user.name}
       </div>
       <div>
-        {post.interest.title}
-      </div>
-      <div>
         Experience since: {showDate}
       </div>
 

@@ -2,6 +2,7 @@ import React from "react";
 import type { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post from "../components/Post";
+import { Session } from "next-auth";
 import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import ReactDOM from "react-dom";
@@ -25,6 +26,7 @@ type Props = {
 const Interest: React.FC<Props> = (props) => {
   const { data: session } = useSession();
 
+// @ts-ignore
   const userId = session?.id;
 
 

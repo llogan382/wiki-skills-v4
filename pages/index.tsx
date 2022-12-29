@@ -5,7 +5,8 @@ import Post, { ProfileProps } from "../components/Post";
 import prisma from '../lib/prisma'
 import Router from "next/router";
 import Link from "next/link";
-import ProfileCard from "../components/ProfileCard";
+
+
 
 // TODO: Add Location
 export const getStaticProps: GetStaticProps = async () => {
@@ -27,6 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 type Props = {
+  [x: string]: any;
   feed: any[];
 };
 
@@ -37,7 +39,7 @@ const Blog: React.FC<Props> = (props) => {
         <main>
         <h1>Public Feed</h1>
 
-{/* TODO: Fix hydration error */}
+
            {props.updateReturn.map((post) => (
             <div key={post.userId} className="post">
 

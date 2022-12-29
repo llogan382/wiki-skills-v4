@@ -10,10 +10,10 @@ import { signOut, useSession } from "next-auth/react";
 
 export type ProfileContentProps = {
   content: any;
-  profileType: "bio" | "experience" | "contact";
+  profileType: string;
 };
 
-const ProfileBody: React.FC<{ content: ProfileContentProps }> = ( {props} ) => {
+const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
   const {data: session, status} = useSession();
 
 
@@ -49,12 +49,10 @@ const ProfileBody: React.FC<{ content: ProfileContentProps }> = ( {props} ) => {
             return
           }
           return(
-            <div>
-            <div key={i[0]}>
-              <strong>{i[0]}: </strong> {i[1]}
+            <>
+              {i[0]}:  {i[1]}
+            </>
 
-            </div>
-            </div>
           )
         }
         ));
