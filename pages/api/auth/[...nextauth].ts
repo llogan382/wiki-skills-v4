@@ -28,7 +28,7 @@ export const authOptions = {
   ],
   logger: {
     error(code, metadata) {
-      log.error(code, metadata)
+      console.log(code, metadata)
     },
     warn(code) {
       log.warn(code)
