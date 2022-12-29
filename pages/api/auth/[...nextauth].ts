@@ -26,6 +26,7 @@ export const authOptions = {
       },
     }),
   ],
+  debug: true,
   logger: {
     error(code, metadata) {
       console.log(code, metadata)
