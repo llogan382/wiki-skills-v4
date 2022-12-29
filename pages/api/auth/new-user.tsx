@@ -1,6 +1,8 @@
 import { getCsrfToken } from "next-auth/react"
 
 export default function SignIn({ csrfToken }) {
+
+  e.preventDefault();
   return (
     <form method="post" action="/api/auth/signin/email">
       <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
