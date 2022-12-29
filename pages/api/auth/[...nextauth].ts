@@ -48,11 +48,11 @@ export const authOptions = {
   },
   debug: true,
   useSecureCookies: false,
-  callbacks: {
-    async session({ session, token, user }) {
-      return session
-    }
-  },
+  // callbacks: {
+  //   async session({ session, token, user }) {
+  //     return session
+  //   }
+  // },
   secret: "5OzLitvYL0eebk4GEDmKFA0c7knRKI8FR/fh6Chawjc=",
   adapter: PrismaAdapter(prisma),
 };
