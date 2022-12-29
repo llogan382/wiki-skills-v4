@@ -20,12 +20,12 @@ export const authOptions = {
   adapter: PrismaAdapter(prisma),
   debug: true,
   useSecureCookies: false,
-  callbacks: {
-    async session({ session, token, user }) {
+  // callbacks: {
+  //   async session({ session, token, user }) {
 
-      return session
-    }
-  },
+  //     return session
+  //   }
+  // },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
