@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      =  env("DATABASE_URL")
 }
 
 model Account {
@@ -78,7 +78,7 @@ model UserContact {
   phone            String?
   faceTime         String?
   email            String?
-  textMessage      String?
+  textMessage             String?
   linkedIn         String?
   facebook         String?
   twitter          String?
