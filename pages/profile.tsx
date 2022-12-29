@@ -58,7 +58,7 @@ const Profile: React.FC<Props> = (props) => {
         body: JSON.stringify(data),
       });
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
