@@ -1,7 +1,7 @@
 import prisma from '../../lib/prisma'
 
 import React, {useEffect, useState} from "react";
-
+import Layout from '../../components/Layout';
 import ProfileBody from "../../components/ProfileContent";
 
 export default function Post({ post }) {
@@ -10,6 +10,8 @@ export default function Post({ post }) {
   const [userContent, setUserContent] = useState({content: post.updateReturn.bio, profileType: "bio"});
 
   return (
+    <Layout>
+
     <section className="profileCard">
       <div className="banner">
         Banner
@@ -88,6 +90,7 @@ background: linear-gradient(to bottom right, #8AE95A, #6E7E84);
 
       `}</style>
     </section>
+    </Layout>
 
   )
 }
