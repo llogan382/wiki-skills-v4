@@ -14,18 +14,26 @@ export const authOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET
+      clientSecret: process.env.GITHUB_SECRET,
+      profile(profile) {
+        return {
+          id: profile.id.toString(),
+          name: profile.name || profile.login,
+          email: profile.email,
+          image: profile.avatar_url,
+        } as NextAuthUserWithStringId
+      },
     }),
   ],
   adapter: PrismaAdapter(prisma),
   debug: true,
   useSecureCookies: false,
-  // callbacks: {
-  //   async session({ session, token, user }) {
+  callbacks: {
+    async session({ session, token, user }) {
 
-  //     return session
-  //   }
-  // },
+      return session
+    }
+  },
   secret: process.env.NEXTAUTH_SECRET,
 };
 
