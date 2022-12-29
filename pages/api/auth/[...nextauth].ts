@@ -1,5 +1,6 @@
 
 import { NextApiHandler } from "next";
+import log from "logging-service"
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GitHubProvider from 'next-auth/providers/github'
 import prisma from '../../../lib/prisma'
@@ -10,6 +11,7 @@ id: string
 }
 
 export const authOptions = {
+  adapter: PrismaAdapter(prisma),
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -24,16 +26,16 @@ export const authOptions = {
       },
     }),
   ],
-  callback: {
-    signIn(user, account, profile) {
-        user.name = slug(user.email.slice(0, user.email.indexOf('@'))) // or whatever else
-
-        return true
-      }
-  },
-  session: {
-    // Set to jwt in order to CredentialsProvider works properly
-    strategy: "jwt",
+  logger: {
+    error(code, metadata) {
+      log.error(code, metadata)
+    },
+    warn(code) {
+      log.warn(code)
+    },
+    debug(code, metadata) {
+      log.debug(code, metadata)
+    }
   },
   callbacks: {
     async session({ session, token, user }) {
@@ -44,7 +46,6 @@ export const authOptions = {
       return session
     }
   },
-  adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
 };
 
