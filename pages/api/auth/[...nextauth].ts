@@ -7,9 +7,7 @@ import prisma from '../../../lib/prisma'
 import { url } from "inspector";
 import NextAuth, { User as NextAuthUser } from 'next-auth'
 import { randomUUID, randomBytes } from "crypto";
-interface NextAuthUserWithStringId extends NextAuthUser {
-id: string
-}
+
 
 export const authOptions = {
   providers: [
@@ -22,7 +20,7 @@ export const authOptions = {
           name: profile.name || profile.login,
           email: profile.email,
           image: profile.avatar_url,
-        } as NextAuthUserWithStringId
+        }
       },
     }),
   ],
@@ -33,7 +31,6 @@ export const authOptions = {
     // You can still force a JWT session by explicitly defining `"jwt"`.
     // When using `"database"`, the session cookie will only contain a `sessionToken` value,
     // which is used to look up the session in the database.
-    strategy: "database",
 
     // Seconds - How long until an idle session expires and is no longer valid.
     maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -49,16 +46,15 @@ export const authOptions = {
       return randomUUID?.() ?? randomBytes(32).toString("hex")
     }
   },
-  adapter: PrismaAdapter(prisma),
   debug: true,
   useSecureCookies: false,
   callbacks: {
     async session({ session, token, user }) {
-
       return session
     }
   },
-  secret: "5OzLitvYL0eebk4GEDmKFA0c7knRKI8FR/fh6Chawjc="
+  secret: "5OzLitvYL0eebk4GEDmKFA0c7knRKI8FR/fh6Chawjc=",
+  adapter: PrismaAdapter(prisma),
 };
 
 
