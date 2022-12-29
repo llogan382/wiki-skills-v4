@@ -8,12 +8,16 @@ import { url } from "inspector";
 import NextAuth, { User as NextAuthUser } from 'next-auth'
 import { randomUUID, randomBytes } from "crypto";
 
+import { Issuer } from 'openid-client';
 
 export const authOptions = {
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+      client: {
+        client_id: 'ca810e94985a229cad3c'
+      },
       profile(profile) {
         return {
           id: profile.id.toString(),
