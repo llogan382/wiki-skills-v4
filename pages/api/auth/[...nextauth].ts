@@ -16,7 +16,8 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       client: {
-        client_id: 'ca810e94985a229cad3c'
+        client_id: 'ca810e94985a229cad3c',
+        client_secret: '1b457a15ffec3ee58faa980bce827d7fea4eae66'
       },
       profile(profile) {
         return {
