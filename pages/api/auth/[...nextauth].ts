@@ -24,16 +24,22 @@ export const authOptions = {
       },
     }),
   ],
+  callback: {
+    signIn(user, account, profile) {
+        user.name = slug(user.email.slice(0, user.email.indexOf('@'))) // or whatever else
 
-  // callbacks: {
-  //   async session({ session, token, user }) {
-  //     // Send properties to the client, like an access_token and user id from a provider.
-  //     session.id = user.id
-  //     session.email = user.email
+        return true
+      }
+  },
+  callbacks: {
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.id = user.id
+      session.email = user.email
 
-  //     return session
-  //   }
-  // },
+      return session
+    }
+  },
   adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
 };
