@@ -3,20 +3,7 @@ import { PrismaClient, Prisma } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const userData: Prisma.UserCreateInput[] = [
-  {
-    name: 'Alice',
-    email: 'alice@prisma.io',
-    payments: ['venmo', 'paypal']
-  },
-  {
-    name: 'Steve',
-    email: 'Steve@prisma.io',
-    payments: ['none']
-  },
-  {
-    name: 'Mahmoud',
-    email: 'mahmoud@prisma.io',
-  },
+
 ]
 
 async function main() {

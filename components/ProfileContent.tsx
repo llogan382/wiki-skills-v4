@@ -63,8 +63,10 @@ const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
     if(item.content){
       setContent(item.content)
       return
+    } else {
+
+      setContent('No Bio info was entered')
     }
-    setContent('No Bio info was entered')
   }
 
       useEffect(() => {
