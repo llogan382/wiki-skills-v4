@@ -23,8 +23,11 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const updateReturn = await JSON.parse(JSON.stringify(feed));
   return {
-    props: { updateReturn }
-  };
+    props: {
+      updateReturn,
+    },
+    revalidate: 10,
+  }
 };
 
 type Props = {
