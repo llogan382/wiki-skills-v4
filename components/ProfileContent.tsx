@@ -14,6 +14,7 @@ export type ProfileContentProps = {
 };
 
 const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
+
   const {data: session, status} = useSession();
 
 
@@ -24,10 +25,9 @@ const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
       setContent(item.content.map(i => {
         const experienceSince = new Date(i.experience).toUTCString()
         return(
-          <div>
           <div key={i.interestId}>
+          <div>
             <p>interest: {i.interest.title}</p>
-
             <p>Since: {experienceSince}</p>
           </div>
           </div>
@@ -59,8 +59,6 @@ const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
         return
       }
       setContent('No contact info was added')
-
-
     }
     if(item.content){
       setContent(item.content)

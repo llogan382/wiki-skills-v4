@@ -1,3 +1,4 @@
+// @ts-nocheck
 generator client {
   provider = "prisma-client-js"
 }

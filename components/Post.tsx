@@ -6,7 +6,7 @@ import Link from "next/link";
 // TODO: Update to show profile info, location
 
 export type ProfileProps = {
-  interest: Interests[];
+  interest: Interests;
   user: User;
   experience: Date;
 };
@@ -23,11 +23,13 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
           as={`/interests/${post.user.id}`}
           href="/interests/[post.user.id]"
           >
+        {post.user.name}
 
       <div>
-        {post.user.name}
-      </div>
-      <div>
+        <div>
+        {post.interest.title}
+
+        </div>
         Experience since: {showDate}
       </div>
 

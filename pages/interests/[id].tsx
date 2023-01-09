@@ -5,7 +5,6 @@ import Layout from '../../components/Layout';
 import ProfileBody from "../../components/ProfileContent";
 
 export default function Post({ post }) {
-  console.log(post)
 
   const [userContent, setUserContent] = useState({content: post.updateReturn.bio, profileType: "bio"});
 

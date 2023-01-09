@@ -16,8 +16,8 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       client: {
-        client_id: 'ca810e94985a229cad3c',
-        client_secret: '1b457a15ffec3ee58faa980bce827d7fea4eae66'
+        client_id: process.env.GITHUB_ID,
+        client_secret: process.env.GITHUB_SECRET,
       },
       profile(profile) {
         return {
@@ -29,6 +29,14 @@ export const authOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.id = user.id
+
+      return session
+    }
+  },
   session: {
     // Choose how you want to save the user session.
     // The default is `"jwt"`, an encrypted JWT (JWE) stored in the session cookie.

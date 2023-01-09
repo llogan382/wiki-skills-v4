@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import type { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post from "../components/Post";
@@ -40,13 +40,43 @@ type Props = {
 // TODO: Create image
 const Profile: React.FC<Props> = (props) => {
   const { data: session } = useSession();
-// @ts-ignore
-  const userId = session?.id;
+
+  // @ts-ignore
+  // const userId = session.id;
+  const userId = 1;
 
 // TODO: Load user data in form on page load.
   const { register, handleSubmit } = useForm<IFormInput>();
+
+  const [userProfile, setUserProfile] = useState({});
+  const [userContent, setUserContent] = useState([])
+  const onLoad = async () => {
+    try {
+      const showProfile = await fetch(`/api/profile/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Cross-Origin-Resource-Policy": "cross-origin",
+        },
+      }).then(function(response){
+        return response.json();
+      });
+      setUserProfile(showProfile);
+      return showProfile;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    onLoad();
+  }, []);
+
+
+
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data)
     try {
 
       await fetch(`/api/profile/${userId}`, {
@@ -58,9 +88,20 @@ const Profile: React.FC<Props> = (props) => {
         body: JSON.stringify(data),
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+
+  // Show current profile calues
+
+  function showProfile(bioData){
+    for (const [key, value] of Object.entries(bioData)) {
+
+      console.log(`${key}: ${value}`);
+    }
+
+    return
+  }
 
   if (!session) {
     return (
@@ -123,6 +164,7 @@ const Profile: React.FC<Props> = (props) => {
             <input type="submit" />
           </form>
 
+    {showProfile(userProfile)}
         </main>
 
       </div>

@@ -7,6 +7,7 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Router from "next/router";
 
 
 interface IFormInput {
@@ -25,19 +26,24 @@ type Props = {
 // TODO: Create image
 const Interest: React.FC<Props> = (props) => {
   const { data: session } = useSession();
-
 // @ts-ignore
   const userId = session?.id;
 
 
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-
+    // console.log(data)
     try {
       await fetch(`/api/interests/${userId}`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cross-Origin-Resource-Policy": "cross-origin",
+        },
         body: JSON.stringify(data),
       });
+      await Router.push("/");
+
     } catch (error) {
       console.log(error);
     }

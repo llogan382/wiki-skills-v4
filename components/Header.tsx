@@ -10,7 +10,6 @@ const Header: React.FC = () => {
 
   const {data: session, status} = useSession();
 
-  console.log('this is the session', session)
   let left = (
     <div className="left">
       <Link href="/">
