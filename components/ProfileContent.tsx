@@ -49,9 +49,9 @@ const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
             return
           }
           return(
-            <>
+            <p key={i[0]}>
               {i[0]}:  {i[1]}
-            </>
+            </p>
 
           )
         }
