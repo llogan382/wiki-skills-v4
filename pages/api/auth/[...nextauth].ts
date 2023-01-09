@@ -3,11 +3,13 @@ import { NextApiHandler } from "next";
 import log from "logging-service"
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GitHubProvider from 'next-auth/providers/github'
+import GitHubProvider from 'next-auth/providers/github'
+
 import prisma from '../../../lib/prisma'
 import { url } from "inspector";
 import NextAuth, { User as NextAuthUser } from 'next-auth'
 import { randomUUID, randomBytes } from "crypto";
-
+import GoogleProvider from "next-auth/providers/google";
 import { Issuer } from 'openid-client';
 import { env } from "node:process";
 
@@ -29,6 +31,10 @@ export const authOptions = {
         }
       },
     }),
+    GoogleProvider({
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+    })
   ],
   callbacks: {
     async session({ session, token, user }) {
