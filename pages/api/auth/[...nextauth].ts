@@ -9,6 +9,7 @@ import NextAuth, { User as NextAuthUser } from 'next-auth'
 import { randomUUID, randomBytes } from "crypto";
 
 import { Issuer } from 'openid-client';
+import { env } from "node:process";
 
 export const authOptions = {
   providers: [
@@ -16,8 +17,8 @@ export const authOptions = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       client: {
-        client_id: process.env.GITHUB_ID,
-        client_secret: process.env.GITHUB_SECRET,
+        client_id: process.env.NEXT_PUBLIC_GITHUB_ID,
+        client_secret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
       },
       profile(profile) {
         return {
