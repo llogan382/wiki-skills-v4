@@ -163,8 +163,10 @@ const Profile: React.FC<Props> = (props) => {
 
             <input type="submit" />
           </form>
+          <div>
+      {/* {userProfile ? showProfile(userProfile) : } */}
 
-    {showProfile(userProfile)}
+          </div>
         </main>
 
       </div>
