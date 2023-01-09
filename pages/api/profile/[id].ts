@@ -11,25 +11,26 @@ import { authOptions } from '../auth/[...nextauth]';
 // TODO: Finish adding location
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const profileId = req.query.id;
-  const session = await unstable_getServerSession(req, res, authOptions)
+  const session = await getSession({ req })
 
 
-if(req.method === "GET"){
-  console.log(req.body)
 
-  const userProfile = await prisma.user.findUnique({
-    where: {
-      id: Number(profileId),
-    },
-    include: {
-      interests: true
-    }
-  })
-  res.status(200).json( userProfile )
-  // console.log(userProfile)
+// if(req.method === "GET"){
+//   console.log(req.body)
 
-  return
-}
+//   const userProfile = await prisma.user.findUnique({
+//     where: {
+//       id: Number(profileId),
+//     },
+//     include: {
+//       interests: true
+//     }
+//   })
+//   res.status(200).json( userProfile )
+//   // console.log(userProfile)
+
+//   return
+// }
 
   const {
     bio,
@@ -56,6 +57,9 @@ if(req.method === "GET"){
 
 
   // ID in the profile matches locationProfile
+
+  const zipAsInt = Number(zipcode);
+
   if (session) {
     const userInfo = await prisma.user.update({
       where: {
@@ -68,7 +72,7 @@ if(req.method === "GET"){
         street2: street2,
         city: city,
         State: state,
-        zipcode: Number(zipcode),
+        zipcode: zipAsInt,
         contact: {
           upsert: {
             update: {
@@ -102,8 +106,6 @@ if(req.method === "GET"){
       }
 
     })
-    res.send(userInfo);
-
     res.json(userInfo);
   } else {
     res.status(401).send({ message: 'Unauthorized' })

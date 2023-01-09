@@ -77,6 +77,7 @@ const Profile: React.FC<Props> = (props) => {
 
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+
     try {
 
       await fetch(`/api/profile/${userId}`, {
