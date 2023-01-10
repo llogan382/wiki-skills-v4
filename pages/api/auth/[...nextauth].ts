@@ -5,6 +5,7 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from "next-auth/providers/google";
 
+import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 
 import prisma from '../../../lib/prisma'
 import { url } from "inspector";
@@ -13,15 +14,25 @@ import { randomUUID, randomBytes } from "crypto";
 import { Issuer } from 'openid-client';
 import { env } from "node:process";
 
+
+
 export const authOptions = {
+  authorization: {
+    url: "http://localhost:3000/api/auth/signin",
+    params: { scope: "email" }
+  },
+
+
   providers: [
     GitHubProvider({
+
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
       client: {
         client_id: process.env.NEXT_PUBLIC_GITHUB_ID,
         client_secret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
       },
+
       profile(profile) {
         return {
           id: profile.id.toString(),
