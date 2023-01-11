@@ -47,6 +47,7 @@ export default function Post({ post }) {
 
 
 
+
       <style jsx>{`
         .profileCard {
           color: inherit;

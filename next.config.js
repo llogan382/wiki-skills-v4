@@ -8,19 +8,10 @@ const ContentSecurityPolicy = `
 `;
 
 module.exports = {
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff'
-          }
-        ],
-      },
-
-    ]
+  images: {
+    domains: ['avataaars.io', 'avatars.githubusercontent.com'],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   env: {
      NEXTAUTH_URL: process.env.NEXTAUTH_URL

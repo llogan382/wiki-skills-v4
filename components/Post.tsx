@@ -4,7 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { Interests, User } from "@prisma/client";
 import Link from "next/link";
 // TODO: Update to show profile info, location
-
+import Image from 'next/image'
 export type ProfileProps = {
   interest: Interests;
   user: User;
@@ -24,7 +24,16 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
           href="/interests/[post.user.id]"
           >
         {post.user.name}
-
+        <Image
+        alt="Vercel logo"
+        src={post.user.image}
+        width={50}
+        height={50}
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+        }}
+      />
       <div>
         <div>
         {post.interest.title}
