@@ -11,8 +11,9 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     experience,
     experienceDetails,
     interests} = req.body;
+    const session = await getSession({ req })
 
-    const session = await unstable_getServerSession(req, res, authOptions)
+    // const session = await unstable_getServerSession(req, res, authOptions)
 
 
     if(session){
