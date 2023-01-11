@@ -104,8 +104,8 @@ background: linear-gradient(to bottom right, #8AE95A, #6E7E84);
       params: { id: post.id.toString() },
     }))
     return {
-      paths,
-      fallback: false, // can also be true or 'blocking'
+      paths: [],
+      fallback: 'blocking', // can also be true or 'blocking'
     }
   }
 
