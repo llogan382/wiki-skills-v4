@@ -11,7 +11,6 @@ import { authOptions } from '../auth/[...nextauth]';
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 
   const profileId = req.query.id;
-  console.log(req.body);
   const {
     experience,
     title,
@@ -20,7 +19,6 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
 
     const session = await unstable_getServerSession(req, res, authOptions)
 
-    console.log(session)
   // The user exists. Connect or create
   if (!session) {
     res.status(401).json({ message: "You must be logged in." });

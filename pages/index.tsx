@@ -40,7 +40,6 @@ const Blog: React.FC<Props> = (props) => {
     <Layout>
       <div className="page">
         <main>
-          {console.log(props)}
         <h1>Public Feed</h1>
 
 
