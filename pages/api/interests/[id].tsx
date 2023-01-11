@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '../../../lib/prisma'
-import { unstable_getServerSession } from "next-auth/next"
+import { getSession } from 'next-auth/react';
 
 import { authOptions } from '../auth/[...nextauth]';
 // POST /api/interests/:id
