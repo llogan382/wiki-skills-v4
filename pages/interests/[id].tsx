@@ -131,6 +131,7 @@ background: linear-gradient(to bottom right, #8AE95A, #6E7E84);
     return {
       // Passed to the page component as props
       props: { post: {updateReturn} },
+      revalidate: 10,
     }
   }
 
