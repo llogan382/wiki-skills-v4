@@ -5,7 +5,7 @@ import { Interests, User } from "@prisma/client";
 import Link from "next/link";
 import { it } from "node:test";
 import { signOut, useSession } from "next-auth/react";
-
+import { showExperience } from "../lib/utilities";
 
 export type ProfileContentProps = {
   content: any;
@@ -22,12 +22,17 @@ const ProfileBody: React.FC<{ props: ProfileContentProps }> = ( {props} ) => {
   function checkProps(item){
     if(item.profileType == "experience"){
       setContent(item.content.map(i => {
-        const experienceSince = new Date(i.experience).toUTCString()
+        const experienceSince = new Date(i.experience).toDateString()
+
+        const renderExperience = showExperience(i.experience)
         return(
           <div key={i.interestId}>
           <div>
             <p>interest: {i.interest.title}</p>
-            <p>Since: {experienceSince}</p>
+            <p>
+            Experience since: {experienceSince} {showExperience(i.experience)}
+
+            </p>
           </div>
           </div>
 

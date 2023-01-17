@@ -5,7 +5,7 @@ import { Interests, User } from "@prisma/client";
 import Link from "next/link";
 import Image from 'next/image';
 import moment from 'moment';
-
+import { showExperience } from "../lib/utilities";
 
 export type ProfileProps = {
   interest: Interests;
@@ -28,6 +28,7 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
   console.log(a) // returns Tue Jun 01 2010 was 1143 days 36 months 3 years ago
 
   const experienceYears = a.asYears();
+
 
   return (
     <section>
@@ -54,7 +55,7 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
         <p>
 
         </p>
-        Experience since: {showDate} ({experienceYears > 1 ? `${Math.floor(experienceYears)} years` : 'less than 1 year'})
+        Experience since: {showDate} {showExperience(post.experience)}
       </div>
 
       </Link>
