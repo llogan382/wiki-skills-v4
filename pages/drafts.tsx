@@ -82,7 +82,6 @@ export async function getServerSideProps(context) {
   });
 
   const data = await JSON.parse(JSON.stringify(drafts))
-  console.log(data)
   return {
     props: {
       data: data

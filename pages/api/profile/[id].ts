@@ -7,8 +7,7 @@ import { unstable_getServerSession } from "next-auth/next"
 
 import { authOptions } from '../auth/[...nextauth]';
 
-// TODO: Add Image
-// TODO: Finish adding location
+
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const profileId = req.query.id;
   const session = await getSession({ req })

@@ -6,8 +6,9 @@ import { useSession, getSession } from "next-auth/react";
 import prisma from "../lib/prisma";
 import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from './api/auth/[...nextauth]'
 
-// TODO: Add location
 interface IFormInput {
   userId: String;
   bio?: String;
@@ -45,7 +46,7 @@ const Profile: React.FC<Props> = (props) => {
   // const userId = session.id;
   const userId = 1;
 
-// TODO: Load user data in form on page load.
+// TODO: Load user data in form on page load, to show what is in the DB
   const { register, handleSubmit } = useForm<IFormInput>();
 
   const [userProfile, setUserProfile] = useState({});
@@ -112,7 +113,6 @@ const Profile: React.FC<Props> = (props) => {
     );
   }
 
-  // TODO: Add location to form
   return (
     <Layout>
       <div className="page">
@@ -189,5 +189,14 @@ const Profile: React.FC<Props> = (props) => {
     </Layout>
   );
 };
+
+
+export async function getServerSideProps({ req, res }) {
+  return {
+    props: {
+      session: await unstable_getServerSession(req, res, authOptions)
+    }
+  }
+}
 
 export default Profile;

@@ -23,7 +23,6 @@ type Props = {
 
 
 
-// TODO: Create image
 const Interest: React.FC<Props> = (props) => {
   const { data: session } = useSession();
 // @ts-ignore
@@ -57,7 +56,6 @@ const Interest: React.FC<Props> = (props) => {
     );
   }
 
-  // TODO: Add location to form
   return (
     <Layout>
       <div className="page">

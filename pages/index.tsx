@@ -7,8 +7,10 @@ import Router from "next/router";
 import Link from "next/link";
 
 
+// TODO: Make a landing page.
 
-// TODO: Add Location
+// TODO: Make search.
+
 export const getStaticProps: GetStaticProps = async () => {
   const feed = await prisma.usersOnInterests.findMany({
     orderBy: {

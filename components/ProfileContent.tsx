@@ -6,7 +6,6 @@ import Link from "next/link";
 import { it } from "node:test";
 import { signOut, useSession } from "next-auth/react";
 
-// TODO: Update to show profile info, location
 
 export type ProfileContentProps = {
   content: any;

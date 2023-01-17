@@ -3,8 +3,10 @@ import Router from "next/router";
 import ReactMarkdown from "react-markdown";
 import { Interests, User } from "@prisma/client";
 import Link from "next/link";
-// TODO: Update to show profile info, location
-import Image from 'next/image'
+import Image from 'next/image';
+import moment from 'moment';
+
+
 export type ProfileProps = {
   interest: Interests;
   user: User;
@@ -13,9 +15,19 @@ export type ProfileProps = {
 
 const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
 
+// TODO: Change date format for experience
+  const showDate = new Date(post.experience).toDateString();
 
-  const showDate = new Date(post.experience).toUTCString();
+  // const whatsThis = new Date(post.experience);
+  // const rightNow = new Date();
 
+  const today = new moment();
+  const past = new moment(post.experience); // remember this is equivalent to 06 01 2010
+  //dates in js are counted from 0, so 05 is june
+  var a = moment.duration(today.diff(past))
+  console.log(a) // returns Tue Jun 01 2010 was 1143 days 36 months 3 years ago
+
+  const experienceYears = a.asYears();
 
   return (
     <section>
@@ -39,7 +51,10 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
         {post.interest.title}
 
         </div>
-        Experience since: {showDate}
+        <p>
+
+        </p>
+        Experience since: {showDate} ({experienceYears > 1 ? `${Math.floor(experienceYears)} years` : 'less than 1 year'})
       </div>
 
       </Link>
