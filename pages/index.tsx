@@ -7,12 +7,12 @@ import Router from "next/router";
 import Link from "next/link";
 
 import Image from "next/image";
-// TODO: Make a landing page.
+
 
 // TODO: Make search.
 
 
-
+// TODO: Finish this landing page
 
 const Home: React.FC = () => {
   return (
