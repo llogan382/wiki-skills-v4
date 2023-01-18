@@ -10,6 +10,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Router from "next/router";
 
 
+// TODO: Add categories for skills
+
 interface IFormInput {
   userId: Number;
   interests: String;

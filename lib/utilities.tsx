@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export const showExperience = (until) => {
 
-  const today = new moment();
+  const today = moment();
   const past = new Date(until);
   var a = moment.duration(today.diff(past))
   const experienceYears = a.asYears();

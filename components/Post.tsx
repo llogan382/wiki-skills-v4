@@ -21,8 +21,8 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
   // const whatsThis = new Date(post.experience);
   // const rightNow = new Date();
 
-  const today = new moment();
-  const past = new moment(post.experience); // remember this is equivalent to 06 01 2010
+  const today = moment();
+  const past = moment(post.experience); // remember this is equivalent to 06 01 2010
   //dates in js are counted from 0, so 05 is june
   var a = moment.duration(today.diff(past))
   console.log(a) // returns Tue Jun 01 2010 was 1143 days 36 months 3 years ago
