@@ -9,7 +9,7 @@ const ContentSecurityPolicy = `
 
 module.exports = {
   images: {
-    domains: ['avataaars.io', 'avatars.githubusercontent.com'],
+    domains: ['avataaars.io', 'avatars.githubusercontent.com', 'images.pexels.com', 'images.unsplash.com'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },

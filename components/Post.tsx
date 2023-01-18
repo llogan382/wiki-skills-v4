@@ -14,12 +14,8 @@ export type ProfileProps = {
 };
 
 const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
-
-// TODO: Change date format for experience
   const showDate = new Date(post.experience).toDateString();
 
-  // const whatsThis = new Date(post.experience);
-  // const rightNow = new Date();
 
   const today = moment();
   const past = moment(post.experience); // remember this is equivalent to 06 01 2010
