@@ -2,7 +2,7 @@ import React from "react";
 import type { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post, { ProfileProps } from "../components/Post";
-import prisma from '../lib/prisma'
+import {prisma} from '../lib/prisma'
 import Router from "next/router";
 import Link from "next/link";
 

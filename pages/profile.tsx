@@ -3,11 +3,16 @@ import type { GetStaticProps } from "next";
 import Layout from "../components/Layout";
 import Post from "../components/Post";
 import { useSession, getSession } from "next-auth/react";
-import prisma from "../lib/prisma";
+import {prisma} from "../lib/prisma";
 import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { unstable_getServerSession } from "next-auth/next"
 import { authOptions } from './api/auth/[...nextauth]'
+import useSWR from 'swr';
+import {SignedUpload} from '../components/CloudinaryUploadWidget'
+
+
+
 
 interface IFormInput {
   userId: String;
@@ -30,6 +35,7 @@ interface IFormInput {
   instagram?: String;
   tikTok?: String;
   youtube?: String;
+
 }
 
 type Props = {
@@ -39,40 +45,19 @@ type Props = {
 
 
 // TODO: Create image
-const Profile: React.FC<Props> = (props) => {
+const Profile: React.FC<Props> = () => {
   const { data: session } = useSession();
 
   // @ts-ignore
-  // const userId = session.id;
-  const userId = 1;
+  // const userId = session?.user?.id;
+  console.log(session)
+  // const userId = 1;
+
 
 // TODO: Load user data in form on page load, to show what is in the DB
   const { register, handleSubmit } = useForm<IFormInput>();
 
-  const [userProfile, setUserProfile] = useState({});
-  const [userContent, setUserContent] = useState([])
-  const onLoad = async () => {
-    try {
-      const showProfile = await fetch(`/api/profile/${userId}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Cross-Origin-Resource-Policy": "cross-origin",
-        },
-      }).then(function(response){
-        return response.json();
-      });
-      setUserProfile(showProfile);
-      return showProfile;
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  useEffect(() => {
-    // Update the document title using the browser API
-    onLoad();
-  }, []);
 
 
 
@@ -96,14 +81,14 @@ const Profile: React.FC<Props> = (props) => {
 
   // Show current profile calues
 
-  function showProfile(bioData){
-    for (const [key, value] of Object.entries(bioData)) {
+  // function showProfile(bioData){
+  //   for (const [key, value] of Object.entries(bioData)) {
 
-      console.log(`${key}: ${value}`);
-    }
+  //     console.log(`${key}: ${value}`);
+  //   }
 
-    return
-  }
+  //   return
+  // }
 
   if (!session) {
     return (
@@ -159,8 +144,13 @@ const Profile: React.FC<Props> = (props) => {
 <input {...register("instagram")} />
 <label> tikTok</label>
 <input {...register("tikTok")} />
+
 <label> youtube</label>
 <input {...register("youtube")} />
+<label htmlFor="avatar">Choose a profile picture:</label>
+
+<SignedUpload />
+
 
             <input type="submit" />
           </form>
@@ -191,12 +181,18 @@ const Profile: React.FC<Props> = (props) => {
 };
 
 
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps(context) {
   return {
     props: {
-      session: await unstable_getServerSession(req, res, authOptions)
-    }
+      session: await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+      ),
+    },
   }
 }
 
 export default Profile;
+
+

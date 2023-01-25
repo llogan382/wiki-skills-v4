@@ -1,0 +1,17 @@
+
+Trusted accounts for deployment: (none)
+Trusted accounts for lookup: (none)
+
+
+npx cdk bootstrap aws://845315765418/us-east-1 --profile ADMIN-PROFILE \
+    --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+
+
+const bucket = new s3.Bucket(this, 'Bucket');
+
+new lambda.Function(this, 'MyLambda', {
+  // ...
+  environment: {
+    BUCKET_NAME: bucket.bucketName,
+  },
+});

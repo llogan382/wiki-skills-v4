@@ -7,7 +7,7 @@ import GoogleProvider from "next-auth/providers/google";
 
 import type { OAuthConfig, OAuthUserConfig } from "next-auth/providers";
 
-import prisma from '../../../lib/prisma'
+import {prisma} from '../../../lib/prisma'
 import { url } from "inspector";
 import NextAuth, { User as NextAuthUser } from 'next-auth'
 import { randomUUID, randomBytes } from "crypto";

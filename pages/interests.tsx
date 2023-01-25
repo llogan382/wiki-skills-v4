@@ -9,7 +9,7 @@ import ReactDOM from "react-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Router from "next/router";
 
-
+// TODO: Update Designs.
 // TODO: Add categories for skills
 
 interface IFormInput {

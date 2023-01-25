@@ -29,10 +29,11 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
   return (
     <section>
       <Link
-          as={`/interests/${post.user.id}`}
           href="/interests/[post.user.id]"
           >
         {post.user.name}
+      </Link>
+
         <Image
         alt="Vercel logo"
         src={post.user.image}
@@ -54,7 +55,6 @@ const Post: React.FC<{ post: ProfileProps }> = ({ post }) => {
         Experience since: {showDate} {showExperience(post.experience)}
       </div>
 
-      </Link>
 
 
       <style jsx>{`

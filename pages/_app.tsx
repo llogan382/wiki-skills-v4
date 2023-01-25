@@ -7,6 +7,8 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps<{ session: Session }>) {
+
+
   return (
     <SessionProvider session={session}>
 
