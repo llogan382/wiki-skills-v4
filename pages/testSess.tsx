@@ -11,7 +11,6 @@ import { authOptions } from './api/auth/[...nextauth]'
 
 
 export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
-  console.log(res)
   return {
     props: {
       session: await unstable_getServerSession(req, res, authOptions)
@@ -21,7 +20,7 @@ export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
 
 
 const Test = (props) => {
-  {console.log(props)}
+
 
   return (
     <Layout>

@@ -13,7 +13,7 @@ export default function Post({ post }) {
 
     <section className="profileCard">
       <div className="banner">
-        Banner
+
       </div>
       <div>
         <img className="profileImage" src={post.updateReturn.image} alt="" srcSet="" />
@@ -74,6 +74,7 @@ background: #8AE95A;
 background: -webkit-linear-gradient(top left, #8AE95A, #6E7E84);
 background: -moz-linear-gradient(top left, #8AE95A, #6E7E84);
 background: linear-gradient(to bottom right, #8AE95A, #6E7E84);
+height: 300px;
         }
         .link{
           grid-area: link;

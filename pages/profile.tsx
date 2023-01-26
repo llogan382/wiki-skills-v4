@@ -50,7 +50,6 @@ const Profile: React.FC<Props> = () => {
 
   // @ts-ignore
   // const userId = session?.user?.id;
-  console.log(session)
   // const userId = 1;
 
 
