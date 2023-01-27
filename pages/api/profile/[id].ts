@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '../../../lib/prisma'
+import {prisma} from '../../../lib/prisma'
 import { getSession } from 'next-auth/react';
 import { create } from 'domain';
 import Email from 'next-auth/providers/email';
@@ -11,7 +11,7 @@ import { authOptions } from '../auth/[...nextauth]';
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const profileId = req.query.id;
   const session = await getSession({ req })
-
+  console.log(req.query.id)
 
 
 // if(req.method === "GET"){
@@ -51,12 +51,13 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     instagram,
     tikTok,
     youtube,
-    interests} = req.body;
+    interests,
+    profileImage} = req.body;
 
 
 
   // ID in the profile matches locationProfile
-
+console.log(req.body)
   const zipAsInt = Number(zipcode);
 
   if (session) {

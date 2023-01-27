@@ -1,42 +1,27 @@
-import { CldUploadWidget } from 'next-cloudinary';
+import { CldUploadButton } from 'next-cloudinary';
 import { useState } from 'react';
 import Script from 'next/script'
 
-export const SignedUpload = () => {
+export const SignedUpload = ({childToParent}) => {
   const [resource, setResource] = useState();
   return (
-    <>
 
- <CldUploadWidget
+ <CldUploadButton
   cloudName="lwd-loganwebdev"
 uploadPreset="wiki-skills-stage"
         // signatureEndpoint="/api/cloudinary"
         onUpload={(error, result, widget) => {
 
           setResource(result?.info);
+          childToParent(result.secure_url)
           widget.close();
         }}
+
+        onClick={() => childToParent(resource.secure_url)}
       >
-        {({ open }) => {
-          function handleOnClick(e) {
-            setResource(undefined);
-            e.preventDefault();
-            open();
-          }
-          return (
-            <button onClick={handleOnClick}>
-              Upload an Image
-            </button>
-          );
-        }}
-      </CldUploadWidget>
+        {console.log(resource?.secure_url)}
+        </CldUploadButton>
 
-      <h3>Unsigned</h3>
+  );
 
-
-      <h3>Signed</h3>
-
-      <p>URL: { resource?.secure_url }</p>
-    </>
-  )
-}
+};
